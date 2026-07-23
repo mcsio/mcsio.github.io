@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mcsio</title>
+<meta name="description" content="Notes on risk, rules, and running a concentrated portfolio.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  :root {
+    --ground:    #F0F2F4;
+    --hairline:  #C9D0D8;
+    --text:      #16202B;
+    --text-soft: #4A5A6B;
+    --text-mute: #7A8794;
+    --accent:    #1F5C99;
+    --alarm:     #9A6A12;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --serif: "Iowan Old Style", "Charter", Charter, Georgia, "Times New Roman", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:    #0A0E13;
+      --hairline:  #232D38;
+      --text:      #D9E1E9;
+      --text-soft: #A2AFBC;
+      --text-mute: #6E7C8A;
+      --accent:    #4C8FD1;
+      --alarm:     #D99A2B;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:    #0A0E13;
+    --hairline:  #232D38;
+    --text:      #D9E1E9;
+    --text-soft: #A2AFBC;
+    --text-mute: #6E7C8A;
+    --accent:    #4C8FD1;
+    --alarm:     #D99A2B;
+  }
+
+  :root[data-theme="light"] {
+    --ground:    #F0F2F4;
+    --hairline:  #C9D0D8;
+    --text:      #16202B;
+    --text-soft: #4A5A6B;
+    --text-mute: #7A8794;
+    --accent:    #1F5C99;
+    --alarm:     #9A6A12;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  main {
+    max-width: 56ch;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+  }
+
+  .wordmark {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--alarm);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0;
+  }
+  .wordmark::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
+
+  .intro { color: var(--text-soft); margin: 0; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin: 0 0 1rem;
+  }
+
+  .entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .entry-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+  }
+  .entry-title {
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .entry-title a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .entry-title a:hover { color: var(--accent); }
+  .entry-title a:focus-visible { outline: 2px solid var(--alarm); outline-offset: 3px; }
+  .entry-blurb { font-size: 0.95rem; color: var(--text-soft); margin: 0; }
+
+  footer {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-mute);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+  footer a { color: var(--accent); text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="wordmark">mcsio</p>
+
+  <p class="intro">Notes on risk, rules, and running a concentrated portfolio without getting shaken out of it — or blowing it up by accident.</p>
+
+  <section>
+    <h2>Writing</h2>
+    <div class="entry">
+      <span class="entry-date">2026-07</span>
+      <h3 class="entry-title"><a href="/drawdown/">Seventy percent of my drawdown was money I deployed after the peak</a></h3>
+      <p class="entry-blurb">A post-mortem of a 20.3% drawdown on a concentrated, unlevered semiconductor book, and the twelve-rule system rebuilt from it. No price-structure rule fires at an all-time high — which turns out to be the whole problem.</p>
+    </div>
+  </section>
+
+  <footer><a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a></footer>
+</main>
+</body>
+</html>
