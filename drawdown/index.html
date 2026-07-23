@@ -477,7 +477,7 @@
   <header class="masthead col">
     <div class="eyebrow">Post-mortem &nbsp;·&nbsp; concentrated equity book</div>
     <h1>Seventy percent of my drawdown was money I deployed after the peak.</h1>
-    <p class="standfirst">I lost 20.3% of a concentrated, unlevered semiconductor book over eighteen sessions. Almost none of that loss came from the position I was famous for defending. It came from the buying I did on the way down.</p>
+    <p class="standfirst">I lost 20.3% of a concentrated, unlevered semiconductor book in eighteen sessions. Almost none of it came from the core I'd held for months — it came from the buying I did on the way down.</p>
     <div class="byline">
       <span>Episode 2026-06-22 → 2026-07-16</span>
       <span>Two post-mortems</span>
@@ -529,22 +529,21 @@
         <text class="plot-label" x="760" y="278" text-anchor="end">7/16</text>
       </svg>
     </div>
-    <figcaption>Marked points are the dated closes recorded in the post-mortems; the line between them is interpolation, not a daily series. The dashed horizontals are the drawdown ladder as it was written <em>before</em> the episode — the rungs the path crossed while I found reasons not to act on them.</figcaption>
+    <figcaption>Marked points are dated closes; the line between them is interpolation. The dashed rungs are the ladder as written <em>before</em> the episode — crossed while I found reasons not to act.</figcaption>
   </figure>
 
   <section class="col">
     <h2>The part I got right</h2>
     <div class="flow">
-      <p>I run a concentrated, unlevered position in AI-adjacent semiconductors. That concentration is the thesis, not a risk I'm trying to manage away. I hold through drawdowns that shake most people out, and I'm unlevered specifically so that nobody can ever force me to sell at the bottom.</p>
-      <p>All of that worked. Through the entire episode, zero of my four written falsifiers printed. The thesis was intact on the last day of the drawdown in exactly the way it was intact on the first. If holding had been the only thing I did, this would be a boring story about a 20% mark-to-market on a volatile book.</p>
-      <p>It isn't, because holding wasn't the only thing I did.</p>
+      <p>I run a concentrated, unlevered position in AI-adjacent semiconductors. The concentration is deliberate — it's the thesis — and being unlevered means nobody can force me to sell at the bottom. I hold through drawdowns that shake most people out.</p>
+      <p>That part worked. Zero of my four written falsifiers printed; the thesis was as intact on the last red day as the first. If holding had been all I did, this would be a boring story about a mark-to-market. It isn't, because holding wasn't all I did.</p>
     </div>
   </section>
 
   <section class="col">
     <h2>The finding</h2>
     <div class="flow">
-      <p>Three weeks in, I stopped and did the attribution properly — not "which names went down," but <em>which dollars</em> lost the money. The answer reorganized the whole system.</p>
+      <p>Three weeks in, I traced <em>which dollars</em> lost the money — not which names fell. The answer reorganized the whole system.</p>
     </div>
 
     <div class="stats">
@@ -563,12 +562,11 @@
     </div>
 
     <div class="flow">
-      <p>A second, deeper post-mortem five days later put the post-peak share at 74%. The number moved a little; the conclusion didn't move at all.</p>
-      <p>This is not a stock-picking failure. Every name I bought at the top is a name I still want to own. It is a <strong>pacing</strong> failure, and pacing is a category of mistake that essentially no risk framework in retail investing is built to catch.</p>
+      <p>This is not a stock-picking failure — every name I bought at the top is one I still want to own. It is a <strong>pacing</strong> failure, and almost no retail risk framework is built to catch it.</p>
     </div>
 
     <div class="callout warn">
-      <p><strong>Here is the uncomfortable part.</strong> No price-structure rule fires at an all-time high. Not a stop, not a trailing stop, not a trend filter, not a moving-average gate, not a drawdown brake. Every one of them is silent — <em>by construction</em> — on the exact day you do the most damage. The peak is the one moment when the entire genre of risk rule has nothing to say.</p>
+      <p><strong>The uncomfortable part:</strong> no price-structure rule fires at an all-time high. Not a stop, not a trend filter, not a drawdown brake. Every one is silent — <em>by construction</em> — on the exact day you do the most damage.</p>
       <p>The only rule that catches it is a cap on how fast you're allowed to buy. Nothing else even looks at the failure mode.</p>
     </div>
   </section>
@@ -576,8 +574,8 @@
   <section class="col">
     <h2>What I rebuilt</h2>
     <div class="flow">
-      <p>The old document had thirty-five rules. It had thirty-five rules because every time something went wrong I appended a patch, and patches never get deleted. Three of its dollar levels were stale — computed off a peak that no longer existed — including a hedge-harvest trigger sitting <em>below</em> the buy it was supposed to fund. On the worst day of the drawdown, its standing-stance section told a panicked reader to "deploy into strength."</p>
-      <p>The replacement has twelve rules, one precedence stack, and four invariants. These are the eight design decisions I'd carry into any version of this, for any book:</p>
+      <p>The old rulebook had thirty-five rules, because every time something went wrong I appended a patch. Three of its levels were stale, and on the worst day of the drawdown it told a panicked reader to "deploy into strength."</p>
+      <p>The replacement has twelve rules. These are the eight decisions I'd carry into any version, for any book:</p>
     </div>
 
     <div class="rules">
@@ -587,7 +585,7 @@
         <div class="rule-body">
           <h3>Label the money before you write any rules</h3>
           <p class="lede">Every lot carries one of two labels: <strong>conviction</strong> or <strong>trade</strong>. Trade lots have mechanical stops with no override, ever. Conviction lots get judgment.</p>
-          <p>The catch that makes it work: promotion to conviction requires a dated note naming the specific falsifiers that would exit that position. No written falsifiers, no conviction label, regardless of how strongly you feel about it. Demotion is free.</p>
+          <p>The catch: conviction status requires a dated note naming what would make you exit. No written falsifiers, no conviction label — regardless of feel. Demotion is free.</p>
           <p class="origin"><b>Origin</b> A six-figure position acquired over eight sessions received conviction treatment purely by drift. Nobody ever decided it was conviction. It just never got a stop.</p>
         </div>
       </div>
@@ -596,8 +594,8 @@
         <div class="rule-id">R2</div>
         <div class="rule-body">
           <h3>Falsifiers govern the core; price gets three narrow valves</h3>
-          <p class="lede">Four things can make me wrong, each written down in advance with its pre-agreed action — how much, which lots, on what clock. Leaving on a tripped falsifier <em>is the plan working</em>, green or red.</p>
-          <p>What explicitly does <em>not</em> exit the core: red days, flush days, a 10% down close, a scary alert, or the urge itself. A mark-to-market is not evidence. Price still reduces exposure at the edges through three bounded mechanical valves — but the core answers only to falsifiers.</p>
+          <p class="lede">Four things can make me wrong, each written down in advance with its pre-agreed action. Leaving on a tripped falsifier <em>is the plan working</em>, green or red.</p>
+          <p>What does <em>not</em> exit the core: red days, flush days, a 10% down close, a scary alert, or the urge itself. A mark-to-market is not evidence.</p>
         </div>
       </div>
 
@@ -606,7 +604,7 @@
         <div class="rule-body">
           <h3>Cap the pace, with no signal exception</h3>
           <p class="lede">No more than 8% of the book bought in a session, no more than 15% in any rolling five. All buying counts — including tickets the system itself generated.</p>
-          <p>This is the rule that would have prevented most of the loss, and it is the one that is hardest to accept, because on the day it binds you will have an excellent reason to override it. That's the point. A paper cap loses every collision by default, so this one is machine-checked and a breach locks the buy gates for the next session.</p>
+          <p>The rule that would have prevented most of the loss — and the hardest to accept, because on the day it binds you'll have an excellent reason to override it. That's the point. It's machine-checked; a breach locks the buy gates for the next session.</p>
         </div>
       </div>
 
@@ -614,8 +612,8 @@
         <div class="rule-id">R3(d)</div>
         <div class="rule-body">
           <h3>Pins move one way — up</h3>
-          <p class="lede">The reference price each stop measures against can be raised, never quietly lowered. A silently-lowered pin is ignored by the monitor and flagged once a day. Lowering one deliberately requires an explicit flag in the file <em>and</em> a dated line in the doctrine.</p>
-          <p>If this document only gives you one thing, take this one. One-way pins are what make a stop un-gameable from inside a drawdown, which is the only time anyone ever wants to game it.</p>
+          <p class="lede">The reference price each stop measures against can be raised, never quietly lowered. Lowering one deliberately requires an explicit flag <em>and</em> a dated note.</p>
+          <p>If you take one thing from this page, take this. One-way pins make a stop un-gameable from inside a drawdown — the only time anyone ever wants to game one.</p>
           <p class="origin"><b>Origin</b> I lowered pins repeatedly across three weeks as the book fell. Each individual adjustment was defensible. Together they silenced the monitor for the six sessions immediately preceding the worst leg of the rout.</p>
         </div>
       </div>
@@ -624,8 +622,8 @@
         <div class="rule-id">R6</div>
         <div class="rule-body">
           <h3>Latch the counter-trend buy, then wait for confirmation</h3>
-          <p class="lede">When the book crosses a weakness rung, the buy ticket <em>latches</em>: its composition fixes at that print. But it doesn't deploy until the sector confirms — two consecutive closes above a trend line — and each name only participates once it clears its own.</p>
-          <p>The first version of this fired and deployed the next morning, straight into the knife; the book fell five more points in two sessions. Latching preserves the counter-cyclical instinct — you commit at the discount — while the confirm stops you from catching the falling half of it. The cost is a slightly worse average fill. It is worth it.</p>
+          <p class="lede">When the book crosses a weakness rung, the buy ticket <em>latches</em>: its composition fixes at that print. But it doesn't deploy until the sector confirms — two consecutive closes above a trend line.</p>
+          <p>The first version deployed the next morning, straight into the knife. Latching commits you at the discount; the confirm stops you catching the falling half. The cost is a slightly worse fill. Worth it.</p>
         </div>
       </div>
 
@@ -633,7 +631,7 @@
         <div class="rule-id">P1 – P7</div>
         <div class="rule-body">
           <h3>One precedence stack, looked up, never improvised</h3>
-          <p class="lede">When two rules conflict — and in a real drawdown they conflict constantly — there is exactly one ordering that decides, and it lives in one place. Lower number wins. There is no exceptions clause anywhere else in the document.</p>
+          <p class="lede">When two rules conflict — and in a real drawdown they conflict constantly — one written ordering decides. Lower number wins. No exceptions clause anywhere else.</p>
           <p>Ambiguity in a rulebook doesn't produce caution. It produces whichever action you already wanted to take.</p>
         </div>
       </div>
@@ -642,8 +640,8 @@
         <div class="rule-id">INVARIANT</div>
         <div class="rule-body">
           <h3>Rules, not state</h3>
-          <p class="lede">The document contains no dollar levels, no positions, no current posture — only percentages and conditions. Every live number is machine-written into a separate state file and rendered fresh each day.</p>
-          <p>Hand-maintained numbers inside a rulebook go stale silently, and they go stale <em>fastest</em> in exactly the conditions that make them load-bearing. Separating rules from state is what made the twelve-rule version possible at all.</p>
+          <p class="lede">The rulebook contains no dollar levels, no positions, no current posture — only percentages and conditions. Every live number is machine-written into a separate state file, fresh each day.</p>
+          <p>Hand-maintained numbers go stale silently — and fastest in exactly the conditions that make them load-bearing.</p>
         </div>
       </div>
 
@@ -651,8 +649,8 @@
         <div class="rule-id">INVARIANT</div>
         <div class="rule-body">
           <h3>Adding a rule requires deleting a rule</h3>
-          <p class="lede">Hard cap. Amendments rewrite the affected rule in place plus one dated changelog line — never an appended patch block.</p>
-          <p>Amendment stacking is how thirty-five rules happened, and a thirty-five-rule document is functionally a zero-rule document, because nobody can hold it in their head at the moment it's needed. Mine now has a five-line wallet card and a ten-step panic page. If it doesn't fit on a card, it won't survive contact with a bad morning.</p>
+          <p class="lede">Hard cap. Amendments rewrite the rule in place plus one dated changelog line — never an appended patch.</p>
+          <p>Thirty-five rules is functionally zero rules — nobody can hold them at the moment they're needed. Mine now fits on a wallet card. If it doesn't fit on a card, it won't survive a bad morning.</p>
         </div>
       </div>
 
@@ -662,7 +660,7 @@
   <section class="col">
     <h2>What it costs</h2>
     <div class="flow">
-      <p>Every rule here has a price, and I made myself write each one down next to the rule it belongs to. A rulebook that only lists benefits is marketing, and you will abandon it the first time it hurts — which will be soon, because these rules are designed to hurt in exactly the moments they're working.</p>
+      <p>Every rule has a price, written next to the rule it belongs to. A rulebook that only lists benefits is marketing — you'll abandon it the first time it hurts.</p>
     </div>
 
     <div class="table-wrap">
@@ -678,17 +676,17 @@
           </tr>
           <tr>
             <td>Froth gate</td>
-            <td>Blocks adds when the cluster is extended. Gate-on days have historically <em>run</em> — forward 21-day median +13% vs +2% for everything else. Feeling wrong while it's on is the expected experience of tail insurance, not grounds to relax it.</td>
+            <td>Blocks adds when the cluster is extended — on days that historically kept <em>running</em>. Feeling wrong while it's on is the expected experience of tail insurance.</td>
             <td class="cost">+13% vs +2%</td>
           </tr>
           <tr>
             <td>Deep valve</td>
-            <td>A sharp V-shaped recovery will round-trip a flex lot for nothing. One wasted round trip per year-scale V is the premium; the untouchable core rides through every one of them.</td>
+            <td>A sharp V-shaped recovery round-trips a flex lot for nothing. That's the premium; the core rides through every V.</td>
             <td class="cost">1 round trip / V</td>
           </tr>
           <tr>
             <td>Systematic covered calls</td>
-            <td>Tested and rejected outright. Selling 20%-out-of-the-money three-month calls breached about 60% of the time and lost money per window. Only one narrow pocket survived testing: one month, at a volatility extreme, never on the conviction name.</td>
+            <td>Tested and rejected. 20%-out-of-the-money three-month calls breached about 60% of the time and lost money per window. One narrow pocket survived: one month, at a volatility extreme, never on the conviction name.</td>
             <td class="cost">(4.3)%/window</td>
           </tr>
         </tbody>
@@ -699,21 +697,20 @@
   <section class="col">
     <h2>The two smaller lessons</h2>
     <div class="flow">
-      <p><strong>Alerts that are never actionable train you to ignore alerts that are.</strong> On one representative day, eleven intraday stop-breach messages fired and zero of them were actionable — holding was correct on all eleven. Now every core decision is close-basis by construction and intraday alerts are explicitly labelled attention-only. An alert you've learned to swipe away is worse than no alert, because it costs you the reflex.</p>
-      <p><strong>Hedge the factor you actually own.</strong> For weeks I held index puts against a sector book. Over the drawdown, the index fell 3.6% while my book fell 16.6%. The hedge was real, expensive, and pointed at the wrong thing. Every roll is now a full re-underwrite — basis, structure, and size re-derived from the live book — because "same structure, further out" is exactly how a hedge on the wrong factor perpetuates itself for a year.</p>
+      <p><strong>Alerts that are never actionable train you to ignore alerts that are.</strong> On one day, eleven intraday stop alerts fired; zero were actionable. Now core decisions are close-basis only, and intraday alerts are labelled attention-only. An alert you've learned to swipe away costs you the reflex.</p>
+      <p><strong>Hedge the factor you actually own.</strong> I held index puts against a sector book; over the drawdown the index fell 3.6% while the book fell 16.6%. Every roll is now a full re-underwrite — "same structure, further out" is how a wrong hedge perpetuates itself.</p>
     </div>
   </section>
 
   <section class="col">
     <h2>What I'm actually asking</h2>
     <div class="flow">
-      <p>The system above exists as running code — nightly evaluation, machine-checked gates, an alert path, an auditable changelog with a ratification step. It took a year and a bad drawdown to build, and it was built entirely for one book: mine.</p>
-      <p>I don't know whether that's a product or a personal obsession, and I'd rather find out by asking than by spending six months building.</p>
+      <p>The system above runs as code — nightly evaluation, machine-checked gates, an auditable changelog. It took a year and a bad drawdown to build, for exactly one book: mine. I don't know whether that's a product or a personal obsession, and I'd rather find out by asking than by building for six months.</p>
     </div>
 
     <div class="ask">
       <p class="ask-q">Do you have written rules for when you sell — and did you write them before or after you needed them?</p>
-      <p>If you have a real book and no written rules, I'd like fifteen minutes to hear how you decide. If you <em>do</em> have written rules, I'd like fifteen minutes even more, because I want to know what yours catch that mine don't.</p>
+      <p>If you have a real book and no written rules, I want to hear how you decide. If you <em>do</em> have written rules, I want it even more — what do yours catch that mine don't?</p>
 
       <form class="reply-form" id="reply-form" novalidate>
         <input type="hidden" name="access_key" value="99e8c854-280f-4691-b346-2e5a07fb1891">
@@ -750,7 +747,7 @@
       <p class="or-email">Or email directly: <a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a><button type="button" class="copy-btn" data-copy="rules@mcsio.com">Copy</button></p>
     </div>
 
-    <p class="disclaimer">Nothing here is investment advice, a recommendation, or an offer of any kind. It's an account of one person's rules for one portfolio, published because the mistakes seem general even though the positions aren't. Individual names, position sizes, and account values have been left out on purpose. Every rule described here was written by me, for me, and cost real money to learn.</p>
+    <p class="disclaimer">Not investment advice — one person's rules for one portfolio, published because the mistakes seem general even though the positions aren't. Names, position sizes, and account values left out on purpose.</p>
   </section>
 
 </div>
