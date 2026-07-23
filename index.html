@@ -173,6 +173,73 @@
   .copy-btn:hover { color: var(--text); border-color: var(--text-mute); }
   .copy-btn:focus-visible { outline: 2px solid var(--alarm); outline-offset: 2px; }
   .copy-btn[data-done="1"] { color: var(--alarm); border-color: var(--alarm); }
+
+  /* ---- reply form ---- */
+  .reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .ask-line { font-family: var(--serif); font-size: 1rem; color: var(--text-soft); margin: 0 0 0.25rem; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .fld { display: flex; flex-direction: column; gap: 0.4rem; }
+  .fld-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .fld-label .opt { text-transform: none; letter-spacing: 0; color: var(--text-mute); }
+  .reply-form select,
+  .reply-form input,
+  .reply-form textarea {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 0;
+    padding: 0.55rem 0.65rem;
+    width: 100%;
+    line-height: 1.5;
+  }
+  .reply-form select, .reply-form input { font-family: var(--mono); font-size: 0.88rem; }
+  .reply-form textarea { resize: vertical; min-height: 5rem; }
+  .reply-form select:focus,
+  .reply-form input:focus,
+  .reply-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .form-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .submit-btn {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ground);
+    background: var(--alarm);
+    border: 1px solid var(--alarm);
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .submit-btn:hover { filter: brightness(1.08); }
+  .submit-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .submit-btn:disabled { opacity: 0.55; cursor: default; filter: none; }
+  .form-status { font-family: var(--mono); font-size: 0.72rem; color: var(--text-soft); }
+  .form-status[data-state="error"] { color: var(--alarm); }
+  .form-done {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--text);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+  }
 </style>
 </head>
 <body>
@@ -188,6 +255,42 @@
       <h3 class="entry-title"><a href="/drawdown/">Seventy percent of my drawdown was money I deployed after the peak</a></h3>
       <p class="entry-blurb">A post-mortem of a 20.3% drawdown on a concentrated, unlevered semiconductor book, and the twelve-rule system rebuilt from it. No price-structure rule fires at an all-time high — which turns out to be the whole problem.</p>
     </div>
+  </section>
+
+  <section>
+    <h2>Get in touch</h2>
+    <form class="reply-form" id="reply-form" novalidate>
+      <p class="ask-line">Do you have written rules for when you sell — and did you write them before or after you needed them?</p>
+      <input type="hidden" name="access_key" value="99e8c854-280f-4691-b346-2e5a07fb1891">
+      <input type="hidden" name="subject" value="mcsio — someone answered the rules question (home)">
+      <input type="hidden" name="from_name" value="mcsio.com / home">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <label class="fld">
+        <span class="fld-label">Do you have written sell rules?</span>
+        <select name="written_rules" required>
+          <option value="" disabled selected>Choose one</option>
+          <option>No — I decide in the moment</option>
+          <option>Some, but nothing written down</option>
+          <option>Yes — I have written rules</option>
+        </select>
+      </label>
+
+      <label class="fld">
+        <span class="fld-label">Your email</span>
+        <input type="email" name="email" required placeholder="you@example.com" autocomplete="email">
+      </label>
+
+      <label class="fld">
+        <span class="fld-label">How do you decide when to sell? <span class="opt">— a few sentences is plenty</span></span>
+        <textarea name="message" rows="4" required placeholder="What actually makes you sell — or what you wish you had a rule for."></textarea>
+      </label>
+
+      <div class="form-row">
+        <button type="submit" class="submit-btn">Send</button>
+        <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
   </section>
 
   <footer>
@@ -226,6 +329,54 @@
       }
     });
   });
+
+  (function () {
+    var form = document.getElementById('reply-form');
+    if (!form) return;
+    var status = document.getElementById('form-status');
+    var submit = form.querySelector('.submit-btn');
+    var key = form.querySelector('[name="access_key"]').value;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (key === 'WEB3FORMS_ACCESS_KEY') {
+        status.textContent = 'Form not configured yet — please email directly.';
+        status.setAttribute('data-state', 'error');
+        return;
+      }
+      submit.disabled = true;
+      status.removeAttribute('data-state');
+      status.textContent = 'Sending…';
+
+      var payload = {};
+      new FormData(form).forEach(function (v, k) { payload[k] = v; });
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          var done = document.createElement('div');
+          done.className = 'form-done';
+          done.textContent = 'Got it — thank you. I read every one of these, and I’ll reply.';
+          form.parentNode.replaceChild(done, form);
+        } else {
+          submit.disabled = false;
+          status.textContent = 'Something went wrong. Try again, or email directly.';
+          status.setAttribute('data-state', 'error');
+        }
+      })
+      .catch(function () {
+        submit.disabled = false;
+        status.textContent = 'Couldn’t reach the server. Try again, or email directly.';
+        status.setAttribute('data-state', 'error');
+      });
+    });
+  })();
 </script>
 </body>
 </html>
