@@ -344,8 +344,28 @@
     background: var(--raised);
     padding: 1rem 1.15rem;
     border: 1px solid var(--hairline);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 0.9rem;
   }
-  .contact a { font-weight: 600; }
+  .contact a { font-weight: 600; flex: 1 1 auto; }
+  .copy-btn {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--text-mute); }
+  .copy-btn:focus-visible { outline: 2px solid var(--alarm); outline-offset: 2px; }
+  .copy-btn[data-done="1"] { color: var(--alarm); border-color: var(--alarm); }
 
   .disclaimer {
     margin-top: 3.5rem;
@@ -611,7 +631,7 @@
     <div class="ask">
       <p class="ask-q">Do you have written rules for when you sell — and did you write them before or after you needed them?</p>
       <p>If you have a real book and no written rules, I'd like fifteen minutes to hear how you decide. If you <em>do</em> have written rules, I'd like fifteen minutes even more, because I want to know what yours catch that mine don't.</p>
-      <p class="contact">→ <a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a></p>
+      <p class="contact">→ <a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a><button type="button" class="copy-btn" data-copy="rules@mcsio.com">Copy</button></p>
     </div>
 
     <p class="disclaimer">Nothing here is investment advice, a recommendation, or an offer of any kind. It's an account of one person's rules for one portfolio, published because the mistakes seem general even though the positions aren't. Individual names, position sizes, and account values have been left out on purpose. Every rule described here was written by me, for me, and cost real money to learn.</p>
@@ -639,6 +659,36 @@
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch (e) {}
       label();
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.copy-btn'), function (b) {
+      b.addEventListener('click', function () {
+        var val = b.getAttribute('data-copy');
+        function done() {
+          b.textContent = 'Copied';
+          b.setAttribute('data-done', '1');
+          setTimeout(function () {
+            b.textContent = 'Copy';
+            b.removeAttribute('data-done');
+          }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(val).then(done, fallback);
+        } else {
+          fallback();
+        }
+        function fallback() {
+          var t = document.createElement('textarea');
+          t.value = val;
+          t.setAttribute('readonly', '');
+          t.style.position = 'absolute';
+          t.style.left = '-9999px';
+          document.body.appendChild(t);
+          t.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          document.body.removeChild(t);
+        }
+      });
     });
   })();
 </script>
