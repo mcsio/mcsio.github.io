@@ -367,6 +367,89 @@
   .copy-btn:focus-visible { outline: 2px solid var(--alarm); outline-offset: 2px; }
   .copy-btn[data-done="1"] { color: var(--alarm); border-color: var(--alarm); }
 
+  /* ---- reply form ---- */
+  .reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    background: var(--raised);
+    border: 1px solid var(--hairline);
+    padding: 1.5rem 1.5rem 1.6rem;
+    margin-top: 0.4rem;
+  }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .fld { display: flex; flex-direction: column; gap: 0.45rem; }
+  .fld-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .fld-label .opt { text-transform: none; letter-spacing: 0; color: var(--text-mute); }
+  .reply-form select,
+  .reply-form input,
+  .reply-form textarea {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--ground);
+    border: 1px solid var(--hairline);
+    border-radius: 0;
+    padding: 0.6rem 0.7rem;
+    width: 100%;
+    line-height: 1.5;
+  }
+  .reply-form textarea { resize: vertical; min-height: 5.5rem; font-family: var(--serif); }
+  .reply-form select:focus,
+  .reply-form input:focus,
+  .reply-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .reply-form select:invalid { color: var(--text-mute); }
+  .form-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.15rem; }
+  .submit-btn {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ground);
+    background: var(--alarm);
+    border: 1px solid var(--alarm);
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .submit-btn:hover { filter: brightness(1.08); }
+  .submit-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .submit-btn:disabled { opacity: 0.55; cursor: default; filter: none; }
+  .form-status {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-soft);
+  }
+  .form-status[data-state="error"] { color: var(--alarm); }
+  .form-done {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 1.35rem 1.5rem;
+    margin-top: 0.4rem;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+  .or-email {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text-mute);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.8rem;
+  }
+  .or-email a { color: var(--accent); font-weight: 600; }
+
   .disclaimer {
     margin-top: 3.5rem;
     padding-top: 1.25rem;
@@ -631,7 +714,40 @@
     <div class="ask">
       <p class="ask-q">Do you have written rules for when you sell — and did you write them before or after you needed them?</p>
       <p>If you have a real book and no written rules, I'd like fifteen minutes to hear how you decide. If you <em>do</em> have written rules, I'd like fifteen minutes even more, because I want to know what yours catch that mine don't.</p>
-      <p class="contact">→ <a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a><button type="button" class="copy-btn" data-copy="rules@mcsio.com">Copy</button></p>
+
+      <form class="reply-form" id="reply-form" novalidate>
+        <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="mcsio — someone answered the rules question">
+        <input type="hidden" name="from_name" value="mcsio.com / drawdown">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label class="fld">
+          <span class="fld-label">Do you have written sell rules?</span>
+          <select name="written_rules" required>
+            <option value="" disabled selected>Choose one</option>
+            <option>No — I decide in the moment</option>
+            <option>Some, but nothing written down</option>
+            <option>Yes — I have written rules</option>
+          </select>
+        </label>
+
+        <label class="fld">
+          <span class="fld-label">Your email</span>
+          <input type="email" name="email" required placeholder="you@example.com" autocomplete="email">
+        </label>
+
+        <label class="fld">
+          <span class="fld-label">How do you decide when to sell? <span class="opt">— a few sentences is plenty</span></span>
+          <textarea name="message" rows="4" required placeholder="What actually makes you sell — or what you wish you had a rule for."></textarea>
+        </label>
+
+        <div class="form-row">
+          <button type="submit" class="submit-btn">Send</button>
+          <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <p class="or-email">Or email directly: <a href="mailto:rules@mcsio.com?subject=Rules">rules@mcsio.com</a><button type="button" class="copy-btn" data-copy="rules@mcsio.com">Copy</button></p>
     </div>
 
     <p class="disclaimer">Nothing here is investment advice, a recommendation, or an offer of any kind. It's an account of one person's rules for one portfolio, published because the mistakes seem general even though the positions aren't. Individual names, position sizes, and account values have been left out on purpose. Every rule described here was written by me, for me, and cost real money to learn.</p>
@@ -690,6 +806,56 @@
         }
       });
     });
+
+    var form = document.getElementById('reply-form');
+    if (form) {
+      var status = document.getElementById('form-status');
+      var submit = form.querySelector('.submit-btn');
+      var key = form.querySelector('[name="access_key"]').value;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        if (key === 'WEB3FORMS_ACCESS_KEY') {
+          status.textContent = 'Form not configured yet — please email directly.';
+          status.setAttribute('data-state', 'error');
+          return;
+        }
+
+        submit.disabled = true;
+        status.removeAttribute('data-state');
+        status.textContent = 'Sending…';
+
+        var payload = {};
+        new FormData(form).forEach(function (v, k) { payload[k] = v; });
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.success) {
+            var done = document.createElement('div');
+            done.className = 'form-done';
+            done.textContent = 'Got it — thank you. I read every one of these, and I’ll reply.';
+            form.parentNode.replaceChild(done, form);
+          } else {
+            submit.disabled = false;
+            status.textContent = 'Something went wrong. Try again, or email directly.';
+            status.setAttribute('data-state', 'error');
+          }
+        })
+        .catch(function () {
+          submit.disabled = false;
+          status.textContent = 'Couldn’t reach the server. Try again, or email directly.';
+          status.setAttribute('data-state', 'error');
+        });
+      });
+    }
   })();
 </script>
 
