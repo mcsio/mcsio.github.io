@@ -1,4 +1,23 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/apps.css"><title>LineAlert — EMA cross alerts for iPhone</title><meta name="description" content="LineAlert watches your tickers and pushes an alert when the 8-day EMA crosses the 20-day EMA on the daily close. Simple, fast, no account."></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/apps.css"><title>LineAlert — EMA cross alerts for iPhone</title><meta name="description" content="LineAlert watches your tickers and pushes an alert when the 8-day EMA crosses the 20-day EMA on the daily close. Simple, fast, no account.">
+<style>
+.list-form{display:flex;flex-direction:column;gap:16px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld-label{font-size:.85rem;font-weight:600;color:#93C5FD}
+.fld-label .opt{font-weight:400;color:var(--muted)}
+.list-form select,.list-form input,.list-form textarea{font:inherit;font-size:1rem;color:var(--text);background:var(--bg);border:1px solid var(--panel2);border-radius:10px;padding:10px 12px;width:100%}
+.list-form textarea{resize:vertical;min-height:5.5rem}
+.list-form select:focus,.list-form input:focus,.list-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.form-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.list-form button{font:inherit;font-weight:700;border:0;cursor:pointer}
+.list-form button:disabled{opacity:.55;cursor:default}
+.form-status{color:var(--muted);font-size:.9rem}
+.form-status[data-state="error"]{color:var(--orange)}
+.form-done{color:var(--text)}
+.checks{display:flex;flex-direction:column;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start}
+.checks input{width:auto;margin-top:.35em}
+</style></head><body>
 <header><div class="wrap"><nav><a class="brand" href="/">mcsio</a><ul><li><a href="/linealert/">LineAlert</a></li><li><a href="/support/">Support</a></li><li><a href="/privacy/">Privacy</a></li></ul></nav></div></header><main><div class="wrap">
 <span class="badge">LineAlert for iPhone</span>
 <h1>Above the line, or below it.</h1>
@@ -18,4 +37,83 @@
 <h2>Your settings</h2>
 <p>Periods are adjustable (default 8 and 20). Bring your own Twelve Data key if you want a licensed feed on the free tier; it stays in your iPhone's Keychain.</p>
 <p class="muted"><small>LineAlert is a math tool, not investment advice. Prices are end-of-day and may be delayed or wrong.</small></p>
-</div></main><footer><div class="wrap">© 2026 mcsio · Simple apps for traders · <a href="/privacy/">Privacy</a> · <a href="/support/">Support</a><br><small>Nothing on this site or in our apps is investment advice. Market data may be delayed or wrong. Trade at your own risk.</small></div></footer></body></html>
+
+<h2 id="next">Next: a rules companion for Schwab accounts</h2>
+<p>LineAlert watches one line. I'm thinking about a bigger tool for people who trade by their own written rules on Schwab: you write the rules, it connects to your own Schwab account and checks every one of them after each close.</p>
+<ul class="plain">
+  <li>Rule checks: "exit on a close below my line," "no position over X% of the book," "keep Y% in cash." You get one message when a rule is broken.</li>
+  <li>Risk across all your accounts at once: beta-weighted exposure and how much of it your hedge covers.</li>
+  <li>A journal that holds you to it: what you said you'd do, next to what you did.</li>
+</ul>
+<p>It doesn't pick stocks or trade for you. You'd connect it with your own Schwab API key. I haven't built it, and I'll only build it if enough people want it.</p>
+<div class="card">
+<form class="list-form" id="list-form" novalidate>
+  <input type="hidden" name="access_key" value="99e8c854-280f-4691-b346-2e5a07fb1891">
+  <input type="hidden" name="subject" value="mcsio - Schwab rules companion list">
+  <input type="hidden" name="from_name" value="mcsio.com / linealert">
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+  <label class="fld"><span class="fld-label">Your email</span>
+    <input type="email" name="email" required placeholder="you@example.com" autocomplete="email"></label>
+
+  <fieldset class="fld" style="border:0;padding:0;margin:0"><legend class="fld-label">Which parts would you use? <span class="opt">pick any</span></legend>
+    <div class="checks">
+      <label><input type="checkbox" name="want_rules" value="yes"> Rule checks after each close</label>
+      <label><input type="checkbox" name="want_risk" value="yes"> Risk and hedge coverage across accounts</label>
+      <label><input type="checkbox" name="want_journal" value="yes"> Rules journal</label>
+    </div></fieldset>
+
+  <label class="fld"><span class="fld-label">Would you pay about $39 a month for it?</span>
+    <select name="would_pay" required>
+      <option value="" disabled selected>Choose one</option>
+      <option>Yes</option><option>Yes, if it checks the rules I write below</option><option>Only at a lower price</option><option>No</option>
+    </select></label>
+
+  <label class="fld"><span class="fld-label">What's one rule you trade by? <span class="opt">a sentence or two</span></span>
+    <textarea name="message" rows="4" required placeholder="The rule you most often break, or wish something enforced."></textarea></label>
+
+  <div class="form-row">
+    <button type="submit" class="btn">Tell me when it's real</button>
+    <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+  </div>
+</form>
+</div>
+<p class="muted"><small>One email if it gets built. Nothing else, and your address goes nowhere else.</small></p>
+</div></main><footer><div class="wrap">© 2026 mcsio · Simple apps for traders · <a href="/privacy/">Privacy</a> · <a href="/support/">Support</a><br><small>Nothing on this site or in our apps is investment advice. Market data may be delayed or wrong. Trade at your own risk.</small></div></footer>
+<script>
+(function () {
+  var form = document.getElementById('list-form');
+  var status = document.getElementById('form-status');
+  var submit = form.querySelector('button[type="submit"]');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    submit.disabled = true;
+    status.removeAttribute('data-state');
+    status.textContent = 'Sending...';
+    var payload = {};
+    new FormData(form).forEach(function (v, k) { payload[k] = v; });
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        var done = document.createElement('p');
+        done.className = 'form-done';
+        done.textContent = "Got it. Thank you - I read every answer.";
+        form.parentNode.replaceChild(done, form);
+      } else { fail('Something went wrong. Try again, or email support@mcsio.com.'); }
+    })
+    .catch(function () { fail("Couldn't reach the server. Try again, or email support@mcsio.com."); });
+  });
+  function fail(msg) {
+    submit.disabled = false;
+    status.textContent = msg;
+    status.setAttribute('data-state', 'error');
+  }
+})();
+</script>
+</body></html>
